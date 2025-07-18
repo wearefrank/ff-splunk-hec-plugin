@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j2:Configuration status="INFO" verbose="false" name="Splunk-Log-Configuration" strict="false" xmlns="http://logging.apache.org/log4j/2.0/config" xmlns:log4j2="log4j-config.xsd">
+
+	<Appenders>
+		<FrankSplunkAppender name="splunk-hec-application"
+				url="${ff:url}"
+				token="${ff:token}"
+				host="${ff:host}"
+				index="${ff:index}"
+				source="${ff:instance.name.lc}.log"
+				sourcetype="${ff:sourcetype}"
+				includeLoggerName="true"
+				includeMDC="true"
+				messageFormat="text"
+				middleware=""
+				batch_size_bytes="0"
+				batch_size_count="0"
+				batch_interval="0"
+				disableCertificateValidation="true">
+		</FrankSplunkAppender>
+		<FrankSplunkAppender name="splunk-hec-messages"
+				url="${ff:url}"
+				token="${ff:token}"
+				host="${ff:host}"
+				index="${ff:index}"
+				source="${ff:instance.name.lc}-messages.log"
+				sourcetype="${ff:sourcetype}"
+				includeLoggerName="true"
+				includeMDC="true"
+				messageFormat="text"
+				middleware=""
+				batch_size_bytes="0"
+				batch_size_count="0"
+				batch_interval="0"
+				disableCertificateValidation="true">
+		</FrankSplunkAppender>
+		<FrankSplunkAppender name="splunk-hec-security"
+				url="${ff:url}"
+				token="${ff:token}"
+				host="${ff:host}"
+				index="${ff:index}"
+				source="${ff:instance.name.lc}-security.log"
+				sourcetype="${ff:sourcetype}"
+				includeLoggerName="true"
+				includeMDC="true"
+				messageFormat="text"
+				middleware=""
+				batch_size_bytes="0"
+				batch_size_count="0"
+				batch_interval="0"
+				disableCertificateValidation="true">
+		</FrankSplunkAppender>
+		<FrankSplunkAppender name="splunk-hec-heartbeat"
+				url="${ff:url}"
+				token="${ff:token}"
+				host="${ff:host}"
+				index="${ff:index}"
+				source="${ff:instance.name.lc}-heartbeat.log"
+				sourcetype="${ff:sourcetype}"
+				includeLoggerName="true"
+				includeMDC="true"
+				messageFormat="text"
+				middleware=""
+				batch_size_bytes="0"
+				batch_size_count="0"
+				batch_interval="0"
+				disableCertificateValidation="true">
+		</FrankSplunkAppender>
+		<FrankSplunkAppender name="splunk-hec-config"
+				url="${ff:url}"
+				token="${ff:token}"
+				host="${ff:host}"
+				index="${ff:index}"
+				source="${ff:instance.name.lc}-config.log"
+				sourcetype="${ff:sourcetype}"
+				includeLoggerName="true"
+				includeMDC="true"
+				messageFormat="text"
+				middleware=""
+				batch_size_bytes="0"
+				batch_size_count="0"
+				batch_interval="0"
+				disableCertificateValidation="true">
+		</FrankSplunkAppender>
+		<FrankSplunkAppender name="splunk-hec-ladybug"
+				url="${ff:url}"
+				token="${ff:token}"
+				host="${ff:host}"
+				index="${ff:index}"
+				source="testtool4${ff:instance.name.lc}.log"
+				sourcetype="${ff:sourcetype}"
+				includeLoggerName="true"
+				includeMDC="true"
+				messageFormat="text"
+				middleware=""
+				batch_size_bytes="0"
+				batch_size_count="0"
+				batch_interval="0"
+				disableCertificateValidation="true">
+		</FrankSplunkAppender>
+	</Appenders>
+	<!-- source is bestandsnaam -->
+
+	<Loggers>
+		<Logger name="MSG" additivity="false" level="INFO">
+			<AppenderRef ref="msg-text"/>
+			<AppenderRef ref="msg-json"/>
+			<AppenderRef ref="splunk-hec-messages"/>
+		</Logger>
+		<Logger name="SEC" additivity="false" level="${ff:security.log.level}">
+			<AppenderRef ref="security"/>
+			<AppenderRef ref="splunk-hec-security"/>
+		</Logger>
+		<Logger name="HEARTBEAT" additivity="false" level="INFO">
+			<AppenderRef ref="heartbeat"/>
+			<AppenderRef ref="splunk-hec-heartbeat"/>
+		</Logger>
+		<Logger name="CONFIG" additivity="false" level="INFO">
+			<AppenderRef ref="config"/>
+			<AppenderRef ref="splunk-hec-config"/>
+		</Logger>
+		<Logger name="APPLICATION" additivity="true" level="DEBUG">
+			<AppenderRef ref="application-log-appender"/>
+			<AppenderRef ref="splunk-hec-application"/>
+		</Logger>
+
+		<Logger name="nl.nn.testtool" additivity="false" level="INFO">
+			<AppenderRef ref="ladybug"/>
+			<AppenderRef ref="splunk-hec-ladybug"/>
+		</Logger>
+		<Logger name="nl.nn.xmldecoder" additivity="false" level="INFO">
+			<AppenderRef ref="ladybug"/>
+			<AppenderRef ref="splunk-hec-ladybug"/>
+		</Logger>
+		<Logger name="org.frankframework.ibistesttool" additivity="false" level="INFO">
+			<AppenderRef ref="ladybug"/>
+			<AppenderRef ref="splunk-hec-ladybug"/>
+		</Logger>
+
+		<Root level="${ff:log.level}">
+			<AppenderRef ref="splunk-hec-application"/>
+			<AppenderRef ref="file"/>
+		</Root>
+	</Loggers>
+</log4j2:Configuration>

@@ -23,11 +23,12 @@ import java.io.Reader;
 import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Enumeration;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
@@ -41,7 +42,7 @@ import org.apache.logging.log4j.core.lookup.AbstractLookup;
 import org.apache.logging.log4j.core.lookup.StrLookup;
 import org.apache.logging.log4j.status.StatusLogger;
 
-import nl.nn.adapterframework.util.StringResolver;
+import org.frankframework.util.StringResolver;
 
 /**
  * Add the Frank property resolver to the log configuration context. Properties starting with {@code ff:} will be substituted via this LookupProvider.
@@ -126,16 +127,39 @@ public class FrankPropertyLookupProvider extends AbstractLookup {
 		return log4jProperties;
 	}
 
-	private static @Nullable Properties getParseProperties(String filename) throws IOException {
-		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		Enumeration<URL> urls = cl.getResources(filename);
-		URL url = null;
-		while (urls.hasMoreElements()) {
-			url = urls.nextElement();
-			//jar:file:/usr/local/tomcat/webapps/ROOT/WEB-INF/lib/ibis-adapterframework-core-7.9.6.jar!/log4j4ibis.properties
-			//file:/opt/frank/resources/log4j4ibis.properties
-			System.err.println(url);
+	/**
+	 * Sort entries `EXTERNAL CLASSPATH` > `WEB-INF/CLASSES` > `JAR FILES`.
+	 * Other files should keep their order.
+	 */
+	protected static class UrlLocationComparator implements java.util.Comparator<URL> {
+		@Override
+		public int compare(URL o1, URL o2) {
+			int o1i = 0;
+			int o2i = 0;
+
+			if (o1.toExternalForm().contains("/opt/frank/resources/")) o1i += -2;
+			if (o2.toExternalForm().contains("/opt/frank/resources/")) o2i += -2;
+
+			if (o1.toExternalForm().contains("/WEB-INF/classes/")) o1i += -1;
+			if (o2.toExternalForm().contains("/WEB-INF/classes/")) o2i += -1;
+
+			return o1i - o2i;
 		}
+	}
+
+	/**
+	 * Scan the classpath and find the correct resource to use.
+	 * See the UrlLocationComparator for the order.
+	 */
+	private static URL findResource(String filename) throws IOException {
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		List<URL> urls = Collections.list(cl.getResources(filename));
+		urls.sort(new UrlLocationComparator());
+		return urls.get(0);
+	}
+
+	private static @Nullable Properties getParseProperties(String filename) throws IOException {
+		URL url = findResource(filename);
 
 		if(url != null) {
 			Properties properties = new Properties();
@@ -144,6 +168,7 @@ public class FrankPropertyLookupProvider extends AbstractLookup {
 			}
 			return properties;
 		}
+
 		return null;
 	}
 

@@ -5,16 +5,14 @@
 	<groupId>org.wearefrank</groupId>
 	<artifactId>splunk-appender</artifactId>
 	<name>WeAreFrank! Splunk Appender Plugin</name>
-	<version>${revision}</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<properties>
-		<ff.version>7.9.6</ff.version>
-		<revision>${ff.version}-SNAPSHOT</revision>
-
+		<ff.version>9.2.0</ff.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.proc>full</maven.compiler.proc>
 		<maven.build.timestamp.format>dd-MM-yyyy HH:mm</maven.build.timestamp.format>
 	</properties>
@@ -26,10 +24,8 @@
 			<version>1.9.0</version>
 		</dependency>
 		<dependency>
-<!--			<groupId>org.frankframework</groupId>-->
-<!--			<artifactId>frankframework-commons</artifactId>-->
-			<groupId>org.ibissource</groupId>
-			<artifactId>ibis-adapterframework-commons</artifactId>
+			<groupId>org.frankframework</groupId>
+			<artifactId>frankframework-commons</artifactId>
 			<version>${ff.version}</version>
 			<exclusions>
 				<exclusion>

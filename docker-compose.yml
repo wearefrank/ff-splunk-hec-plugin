@@ -1,16 +1,12 @@
 name: Splunk HEC Plugin
 services:
   frankframework:
-    image: nexus.frankframework.org/frankframework:7.9.6
+    image: nexus.frankframework.org/frankframework:latest
     ports:
       - "8080:8080"
       - "8001:8001"
     volumes:
-      - C:/Data/Git/IAF_7.9/example/src/main/resources:/opt/frank/resources/
-      - C:/Data/Git/IAF_7.9/example/src/main/webapp/META-INF/context.xml:/usr/local/tomcat/conf/Catalina/localhost/ROOT.xml
-#      - ./target/splunk-appender-7.9.6-SNAPSHOT-fatjar.jar:/opt/frank/resources/splunk-plugin.jar
-      - ./target/splunk-appender-7.9.6-SNAPSHOT-fatjar.jar:/usr/local/tomcat/webapps/ROOT/WEB-INF/lib/splunk-plugin.jar
-#      - ./target/splunk-appender-7.9.6-SNAPSHOT-fatjar.jar:/usr/local/tomcat/lib/splunk-plugin.jar
+      - ./target/splunk-appender-7.9.6-SNAPSHOT-fatjar.jar:/opt/frank/resources/splunk-plugin.jar
       - ./src/test/resources/log4j4ibis.properties:/opt/frank/resources/log4j4ibis.properties
       - ./src/main/secrets:/opt/frank/secrets
     entrypoint: /usr/local/tomcat/bin/catalina.sh
@@ -21,33 +17,10 @@ services:
       dtap.stage: "LOC"
       log.level: INFO
       log4j.configurationFile: log4j4ibis.xml,log4j2-to-splunk.xml
-      # Configures the `Frank!Framework CredentialManager`, to load credentials from the `credentials.properties` file.
-      credentialFactory.class: nl.nn.credentialprovider.PropertyFileCredentialFactory
-      credentialFactory.map.properties: /opt/frank/secrets/credentials.properties
-      JPDA_ADDRESS: 8001
-      JPDA_TRANSPORT: dt_socket
-
-  frank2example:
-    image: nexus.frankframework.org/frank2example:latest
-    ports:
-      - "8080:8080"
-      - "8001:8001"
-    volumes:
-#      - ./target/splunk-appender-9.2.0-SNAPSHOT-fatjar.jar:/opt/frank/resources/splunk-plugin.jar
-      - ./target/splunk-appender-9.2.0-SNAPSHOT-fatjar.jar:/usr/local/tomcat/webapps/ROOT/WEB-INF/lib/splunk-plugin.jar
-#      - ./target/splunk-appender-9.2.0-SNAPSHOT-fatjar.jar:/usr/local/tomcat/lib/splunk-plugin.jar
-      - ./src/test/resources/log4j4ibis.properties:/opt/frank/resources/log4j4ibis.properties
-      - ./src/main/secrets:/opt/frank/secrets
-    environment:
-      dtap.stage: "LOC"
-      log.level: INFO
-      log4j.configurationFile: log4j4ibis.xml,log4j2-to-splunk.xml
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8001
       # Configures the `Frank!Framework CredentialManager`, to load credentials from the `credentials.properties` file.
       credentialFactory.class: nl.nn.credentialprovider.PropertyFileCredentialFactory
       credentialFactory.map.properties: /opt/frank/secrets/credentials.properties
-
-
 
   splunk:
     image: splunk/splunk:latest

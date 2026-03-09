@@ -19,7 +19,7 @@ public class SplunkPlugin extends Plugin {
 	public void start() {
 		String log4jConfigFile = PropertiesUtil.getProperties().getStringProperty(LOG4J2_CONFIGURATION_FILE_PROPERTY_NAME);
 		if (log4jConfigFile == null) {
-			log.warn("No log4j.configurationFile property found, cannot add sentry configuration");
+			log.warn("No log4j.configurationFile property found, cannot add Splunk HEC configuration");
 			return;
 		}
 

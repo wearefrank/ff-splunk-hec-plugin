@@ -9,6 +9,7 @@
 				index="${ff:index:-}"
 				source="${ff:instance.name.lc}.log"
 				sourcetype="${ff:sourcetype:-}"
+				env="${ff:env:-}"
 				includeLoggerName="true"
 				includeMDC="${ff:includeMDC:true}"
 				ignoreExceptions="${ff:ignoreExceptions:true}"
@@ -17,7 +18,9 @@
 				batch_size_bytes="${ff:batch_size_bytes:-0}"
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
+				eventBodySerializer="org.frankframework.plugins.splunk.RawEventBodySerializer"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
+				<PatternLayout pattern="%d{ISO8601} %-5p [%t] %c - %m %X%n"/>
 		</SplunkHttp>
 		<SplunkHttp name="splunk-hec-messages"
 				url="${ff:url}"
@@ -26,6 +29,7 @@
 				index="${ff:index:-}"
 				source="${ff:instance.name.lc}-messages.log"
 				sourcetype="${ff:sourcetype:-}"
+				env="${ff:env:-}"
 				includeLoggerName="true"
 				includeMDC="${ff:includeMDC:true}"
 				ignoreExceptions="${ff:ignoreExceptions:true}"
@@ -34,7 +38,9 @@
 				batch_size_bytes="${ff:batch_size_bytes:-0}"
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
+				eventBodySerializer="org.frankframework.plugins.splunk.RawEventBodySerializer"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
+				<PatternLayout pattern="%d{ISO8601} %-5p [%t] %c - %m %X%n"/>
 		</SplunkHttp>
 		<SplunkHttp name="splunk-hec-security"
 				url="${ff:url}"
@@ -43,6 +49,7 @@
 				index="${ff:index:-}"
 				source="${ff:instance.name.lc}-security.log"
 				sourcetype="${ff:sourcetype:-}"
+				env="${ff:env:-}"
 				includeLoggerName="true"
 				includeMDC="${ff:includeMDC:true}"
 				ignoreExceptions="${ff:ignoreExceptions:true}"
@@ -51,7 +58,9 @@
 				batch_size_bytes="${ff:batch_size_bytes:-0}"
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
+				eventBodySerializer="org.frankframework.plugins.splunk.RawEventBodySerializer"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
+				<PatternLayout pattern="%d{ISO8601} %-5p [%t] %c - %m %X%n"/>
 		</SplunkHttp>
 		<SplunkHttp name="splunk-hec-heartbeat"
 				url="${ff:url}"
@@ -60,6 +69,7 @@
 				index="${ff:index:-}"
 				source="${ff:instance.name.lc}-heartbeat.log"
 				sourcetype="${ff:sourcetype:-}"
+				env="${ff:env:-}"
 				includeLoggerName="true"
 				includeMDC="${ff:includeMDC:true}"
 				ignoreExceptions="${ff:ignoreExceptions:true}"
@@ -68,7 +78,9 @@
 				batch_size_bytes="${ff:batch_size_bytes:-0}"
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
+				eventBodySerializer="org.frankframework.plugins.splunk.RawEventBodySerializer"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
+				<PatternLayout pattern="%d{ISO8601} %-5p [%t] %c - %m %X%n"/>
 		</SplunkHttp>
 		<SplunkHttp name="splunk-hec-config"
 				url="${ff:url}"
@@ -77,6 +89,7 @@
 				index="${ff:index:-}"
 				source="${ff:instance.name.lc}-config.log"
 				sourcetype="${ff:sourcetype:-}"
+				env="${ff:env:-}"
 				includeLoggerName="true"
 				includeMDC="${ff:includeMDC:true}"
 				ignoreExceptions="${ff:ignoreExceptions:true}"
@@ -85,7 +98,9 @@
 				batch_size_bytes="${ff:batch_size_bytes:-0}"
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
+				eventBodySerializer="org.frankframework.plugins.splunk.RawEventBodySerializer"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
+				<PatternLayout pattern="%d{ISO8601} %-5p [%t] %c - %m %X%n"/>
 		</SplunkHttp>
 		<SplunkHttp name="splunk-hec-ladybug"
 				url="${ff:url}"
@@ -94,6 +109,7 @@
 				index="${ff:index:-}"
 				source="testtool4${ff:instance.name.lc}.log"
 				sourcetype="${ff:sourcetype:-}"
+				env="${ff:env:-}"
 				includeLoggerName="true"
 				includeMDC="${ff:includeMDC:true}"
 				ignoreExceptions="${ff:ignoreExceptions:true}"
@@ -102,7 +118,9 @@
 				batch_size_bytes="${ff:batch_size_bytes:-0}"
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
+				eventBodySerializer="org.frankframework.plugins.splunk.RawEventBodySerializer"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
+				<PatternLayout pattern="%d{ISO8601} %-5p [%t] %c - %m %X%n"/>
 		</SplunkHttp>
 	</Appenders>
 	<!-- source is bestandsnaam -->

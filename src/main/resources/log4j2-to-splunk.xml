@@ -2,7 +2,7 @@
 <log4j2:Configuration status="INFO" verbose="false" name="Splunk-Log-Configuration" strict="false" xmlns="http://logging.apache.org/log4j/2.0/config" xmlns:log4j2="log4j-config.xsd">
 
 	<Appenders>
-		<FrankSplunkAppender name="splunk-hec-application"
+		<SplunkHttp name="splunk-hec-application"
 				url="${ff:url}"
 				token="${ff:token}"
 				host="${ff:host:-${env:HOSTNAME}}"
@@ -18,8 +18,8 @@
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
-		</FrankSplunkAppender>
-		<FrankSplunkAppender name="splunk-hec-messages"
+		</SplunkHttp>
+		<SplunkHttp name="splunk-hec-messages"
 				url="${ff:url}"
 				token="${ff:token}"
 				host="${ff:host:-${env:HOSTNAME}}"
@@ -35,8 +35,8 @@
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
-		</FrankSplunkAppender>
-		<FrankSplunkAppender name="splunk-hec-security"
+		</SplunkHttp>
+		<SplunkHttp name="splunk-hec-security"
 				url="${ff:url}"
 				token="${ff:token}"
 				host="${ff:host:-${env:HOSTNAME}}"
@@ -52,8 +52,8 @@
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
-		</FrankSplunkAppender>
-		<FrankSplunkAppender name="splunk-hec-heartbeat"
+		</SplunkHttp>
+		<SplunkHttp name="splunk-hec-heartbeat"
 				url="${ff:url}"
 				token="${ff:token}"
 				host="${ff:host:-${env:HOSTNAME}}"
@@ -69,8 +69,8 @@
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
-		</FrankSplunkAppender>
-		<FrankSplunkAppender name="splunk-hec-config"
+		</SplunkHttp>
+		<SplunkHttp name="splunk-hec-config"
 				url="${ff:url}"
 				token="${ff:token}"
 				host="${ff:host:-${env:HOSTNAME}}"
@@ -86,8 +86,8 @@
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
-		</FrankSplunkAppender>
-		<FrankSplunkAppender name="splunk-hec-ladybug"
+		</SplunkHttp>
+		<SplunkHttp name="splunk-hec-ladybug"
 				url="${ff:url}"
 				token="${ff:token}"
 				host="${ff:host:-${env:HOSTNAME}}"
@@ -103,7 +103,7 @@
 				batch_size_count="${ff:batch_size_count:-0}"
 				batch_interval="${ff:batch_interval:-0}"
 				disableCertificateValidation="${ff:disableCertificateValidation:-false}">
-		</FrankSplunkAppender>
+		</SplunkHttp>
 	</Appenders>
 	<!-- source is bestandsnaam -->
 

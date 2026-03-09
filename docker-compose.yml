@@ -5,14 +5,14 @@ services:
     ports:
       - "8080:8080"
       - "8001:8001"
+    configs:
+      - source: resources_yml
+        target: /opt/frank/resources/resources.yml
     volumes:
-      - ./target/splunk-appender-7.9.6-SNAPSHOT-fatjar.jar:/opt/frank/resources/splunk-plugin.jar
+#      - ./target/splunk-appender-7.9.6-SNAPSHOT-fatjar.jar:/opt/frank/resources/splunk-plugin.jar
+      - ./target/splunk-appender-2.0.0-plugin.jar:/opt/frank/plugins/splunk-plugin.jar
       - ./src/test/resources/log4j4ibis.properties:/opt/frank/resources/log4j4ibis.properties
       - ./src/main/secrets:/opt/frank/secrets
-    entrypoint: /usr/local/tomcat/bin/catalina.sh
-    command:
-        - jpda
-        - run
     environment:
       dtap.stage: "LOC"
       log.level: INFO
@@ -32,3 +32,11 @@ services:
       - SPLUNK_HEC_TOKEN=abcd1234
       - SPLUNK_PASSWORD=Passw0rd
       - SPLUNK_LICENSE_URI=Free
+
+configs:
+  resources_yml:
+    content: |
+      jdbc:
+        - name: "frank"
+          type: "org.h2.jdbcx.JdbcDataSource"
+          url: "jdbc:h2:mem:test;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;"

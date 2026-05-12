@@ -10,7 +10,7 @@ services:
         target: /opt/frank/resources/resources.yml
     volumes:
 #      - ./target/splunk-appender-7.9.6-SNAPSHOT-fatjar.jar:/opt/frank/resources/splunk-plugin.jar
-      - ./target/splunk-appender-2.0.0-plugin.jar:/opt/frank/plugins/splunk-plugin.jar
+      - ./target/splunk-appender-2.0.0-SNAPSHOT-plugin.jar:/opt/frank/plugins/splunk-plugin.jar
       - ./src/test/resources/log4j4ibis.properties:/opt/frank/resources/log4j4ibis.properties
       - ./src/main/secrets:/opt/frank/secrets
     environment:

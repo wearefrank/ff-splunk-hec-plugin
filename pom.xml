@@ -119,13 +119,42 @@
 						</goals>
 						<phase>process-classes</phase>
 						<configuration>
-							<proc>only</proc>
+							<proc>full</proc>
 							<annotationProcessors>
 								<annotationProcessor>org.apache.logging.log4j.core.config.plugins.processor.PluginProcessor</annotationProcessor>
 							</annotationProcessors>
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<!-- added the jar-plugin because it's newer in the parent pom. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>true</addMavenDescriptor>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							<useUniqueVersions>true</useUniqueVersions>
+						</manifest>
+						<manifestEntries>
+							<Description>${project.description}</Description>
+							<Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
+							<Group-Id>${project.groupId}</Group-Id>
+							<Artifact-Id>${project.artifactId}</Artifact-Id>
+							<FrankFramework-Version>${framework.version.range}</FrankFramework-Version>
+							<Project-URL>${project.url}</Project-URL>
+							<Sealed>true</Sealed>
+							<Classifier>${plugin.type}</Classifier>
+
+							<Plugin-Class>${plugin.class}</Plugin-Class>
+							<Plugin-Dependencies>${plugin.dependencies}</Plugin-Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -143,9 +172,10 @@
 					<minimizeJar>true</minimizeJar>
 					<promoteTransitiveDependencies>true</promoteTransitiveDependencies>
 					<shadedArtifactAttached>true</shadedArtifactAttached>
-					<shadedClassifierName>fatjar</shadedClassifierName>
+					<shadedClassifierName>plugin</shadedClassifierName>
 					<filters>
 						<filter>
+							<!-- First! -->
 							<artifact>org.wearefrank:splunk-appender</artifact>
 							<includes>
 								<include>**</include>
